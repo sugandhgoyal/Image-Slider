@@ -91,7 +91,7 @@ const Slider = () => {
         {images &&
           images.length > 0 &&
           images.map((image, index) => {
-            return <Slide image={image} width={300} height={300} key={index} />;
+            return <Slide image={image} key={index} />;
           })}
       </SliderItems>
     );
