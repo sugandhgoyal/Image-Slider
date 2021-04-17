@@ -61,15 +61,15 @@ const Slider = () => {
   }, [images]);
 
   const slideLeft = () => {
-    let last = images.slice(-1);
-    let rest = images.slice(0, -1);
-    let imagesVal = [last, ...rest];
+    let lastImage = images.slice(-1);
+    let restImages = images.slice(0, -1);
+    let imagesVal = [lastImage, ...restImages];
     setimages(imagesVal);
   };
 
   const slideRight = () => {
-    let [first, ...rest] = images;
-    let imagesVal = [...rest, first];
+    let [firstImage, ...restImages] = images;
+    let imagesVal = [...restImages, firstImage];
     setimages(imagesVal);
   };
 
