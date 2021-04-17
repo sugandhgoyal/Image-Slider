@@ -7,7 +7,7 @@ const SliderArrows = styled.div`
   width: 100%;
   z-index: 3;
   > .arrow.left {
-    top: 150px;
+    top: 400px;
     left: 0;
     font-size: 60px;
   }
@@ -19,7 +19,7 @@ const SliderArrows = styled.div`
   }
   > .arrow.right {
     right: 0;
-    top: 150px;
+    top: 400px;
     font-size: 60px;
   }
 `;
@@ -41,36 +41,68 @@ const SliderItems = styled.div`
   }
 `;
 
+const Select = styled.select`
+  margin: 20px auto;
+  padding: 10px;
+`;
+
 const Slider = () => {
-  const [images, setimages] = useState([
-    "image1.png",
-    "image2.jpg",
-    "image3.png",
-    "image4.jpg",
-    "image5.jpg"
-  ]);
+  const categories = ["All", "Beauty", "Clothing", "Accessories"];
+  const allProducts = [
+    {
+      url: "image1.png",
+      name: "Product name",
+      price: "Rs. 500",
+      category: "Beauty"
+    },
+    {
+      url: "image2.jpg",
+      name: "Product name",
+      price: "Rs. 500",
+      category: "Clothing"
+    },
+    {
+      url: "image3.png",
+      name: "Product name",
+      price: "Rs. 500",
+      category: "Beauty"
+    },
+    {
+      url: "image4.jpg",
+      name: "Product name",
+      price: "Rs. 500",
+      category: "Accessories"
+    },
+    {
+      url: "image5.jpg",
+      name: "Product name",
+      price: "Rs. 500",
+      category: "Beauty"
+    }
+  ];
+  const [products, setProducts] = useState(allProducts);
 
   useEffect(() => {
-    if (images) {
+    if (products) {
       let allImages = document.getElementsByClassName("slide");
-      if (allImages && allImages.length > 0) {
+      if (allImages && allImages.length > 0 && allImages[1]) {
         allImages[1].style.boxShadow = "rgb(113 113 123) 7px 10px 14px 0px";
         allImages[1].style.height = "320px";
       }
     }
-  }, [images]);
+  }, [products]);
 
   const slideLeft = () => {
-    let lastImage = images.slice(-1);
-    let restImages = images.slice(0, -1);
-    let imagesVal = [lastImage, ...restImages];
-    setimages(imagesVal);
+    let lastImage = products.slice(-1);
+    let restImages = products.slice(0, -1);
+    let imagesVal = [...lastImage, ...restImages];
+    setProducts(imagesVal);
   };
 
   const slideRight = () => {
-    let [firstImage, ...restImages] = images;
+    let [firstImage, ...restImages] = products;
     let imagesVal = [...restImages, firstImage];
-    setimages(imagesVal);
+    setProducts(imagesVal);
   };
 
   const renderNavigation = () => {
@@ -85,21 +117,49 @@ const Slider = () => {
       </SliderArrows>
     );
   };
+  const handleChange = event => {
+    let newProducts = [...allProducts];
+    if (event.target.value === "All") {
+      setProducts(allProducts);
+    } else {
+      let imagesVal =
+        newProducts &&
+        newProducts.filter(product => product.category === event.target.value);
+      setProducts(imagesVal);
+    }
+  };
+
   const renderSlides = () => {
     return (
-      <SliderItems>
-        {images &&
-          images.length > 0 &&
-          images.map((image, index) => {
-            return <Slide image={image} key={index} />;
-          })}
-      </SliderItems>
+      <>
+        <SliderItems>
+          {products &&
+            products.length > 0 &&
+            products.map((product, index) => {
+              return (
+                <Slide
+                  image={product.url}
+                  name={product.name}
+                  price={product.price}
+                  category={product.category}
+                  key={index}
+                />
+              );
+            })}
+        </SliderItems>
+      </>
     );
   };
 
   return (
     <div className="slider">
-      {renderNavigation()}
+      <Select name="cars" id="cars" onChange={handleChange}>
+        {categories &&
+          categories.map(category => (
+            <option value={category}>{category}</option>
+          ))}
+      </Select>
+      {products && products.length > 2 && renderNavigation()}
       {renderSlides()}
     </div>
   );
