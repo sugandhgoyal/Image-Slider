@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Slide from "./Slide";
 import styled from "styled-components";
+import Select from "./Select";
 
 const SliderArrows = styled.div`
   position: absolute;
@@ -40,12 +41,6 @@ const SliderItems = styled.div`
     border: 1px solid #eee8e8;
     margin-bottom: 20px;
   }
-`;
-
-const Select = styled.select`
-  margin: 10px auto;
-  padding: 10px;
-  display: block;
 `;
 
 const Slider = () => {
@@ -103,12 +98,14 @@ const Slider = () => {
   const slideLeft = () => {
     let lastImage = products.slice(-1);
     let restImages = products.slice(0, -1);
+    //Append last image at the starting of the array
     let imagesVal = [...lastImage, ...restImages];
     setProducts(imagesVal);
   };
 
   const slideRight = () => {
     let [firstImage, ...restImages] = products;
+    //Append first image at the last of the array
     let imagesVal = [...restImages, firstImage];
     setProducts(imagesVal);
   };
@@ -162,12 +159,7 @@ const Slider = () => {
   return (
     <div className="slider">
       <span>Filter Products By Category</span>
-      <Select name="categories" onChange={handleChange}>
-        {categories &&
-          categories.map(category => (
-            <option value={category}>{category}</option>
-          ))}
-      </Select>
+      <Select onChange={handleChange} categories={categories} />
       {products && products.length > 1 && renderNavigation()}
       {renderSlides()}
     </div>
