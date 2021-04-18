@@ -5,6 +5,7 @@ const Card = styled.div``;
 
 const Name = styled.div`
   font-weight: 500;
+  font-size: 18px;
 `;
 
 const Price = styled.div`
@@ -21,7 +22,7 @@ const CardDetails = styled.div`
   flex-direction: column;
   background: white;
   width: 94%;
-  margin-top: 230px;
+  margin-top: 210px;
   padding: 10px;
   justify-content: space-between;
   align-items: flex-start;

@@ -26,6 +26,7 @@ const SliderArrows = styled.div`
 
 const SliderItems = styled.div`
   height: 320px;
+  justify-content: center;
   width: 80%;
   margin: 20% auto;
   display: flex;
@@ -42,15 +43,16 @@ const SliderItems = styled.div`
 `;
 
 const Select = styled.select`
-  margin: 20px auto;
+  margin: 10px auto;
   padding: 10px;
+  display: block;
 `;
 
 const Slider = () => {
   const categories = ["All", "Beauty", "Clothing", "Accessories"];
   const allProducts = [
     {
-      url: "image1.png",
+      url: "image1.jpeg",
       name: "Product name",
       price: "Rs. 500",
       category: "Beauty"
@@ -62,7 +64,7 @@ const Slider = () => {
       category: "Clothing"
     },
     {
-      url: "image3.png",
+      url: "image3.jpeg",
       name: "Product name",
       price: "Rs. 500",
       category: "Beauty"
@@ -74,10 +76,16 @@ const Slider = () => {
       category: "Accessories"
     },
     {
-      url: "image5.jpg",
+      url: "image5.jpeg",
       name: "Product name",
       price: "Rs. 500",
       category: "Beauty"
+    },
+    {
+      url: "image6.jpeg",
+      name: "Product name",
+      price: "Rs. 500",
+      category: "Accessories"
     }
   ];
   const [products, setProducts] = useState(allProducts);
@@ -153,13 +161,14 @@ const Slider = () => {
 
   return (
     <div className="slider">
-      <Select name="cars" id="cars" onChange={handleChange}>
+      <span>Filter Products By Category</span>
+      <Select name="categories" onChange={handleChange}>
         {categories &&
           categories.map(category => (
             <option value={category}>{category}</option>
           ))}
       </Select>
-      {products && products.length > 2 && renderNavigation()}
+      {products && products.length > 1 && renderNavigation()}
       {renderSlides()}
     </div>
   );
