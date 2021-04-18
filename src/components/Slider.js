@@ -9,17 +9,17 @@ const SliderArrows = styled.div`
   z-index: 3;
   > .arrow.left {
     top: 400px;
-    left: 0;
+    left: 10px;
     font-size: 60px;
   }
-  a {
+  div {
     cursor: pointer;
     display: block;
     opacity: 0.8;
     position: absolute;
   }
   > .arrow.right {
-    right: 0;
+    right: 10px;
     top: 400px;
     font-size: 60px;
   }
@@ -113,12 +113,12 @@ const Slider = () => {
   const renderNavigation = () => {
     return (
       <SliderArrows>
-        <a className="arrow left" onClick={() => slideLeft()}>
+        <div className="arrow left" onClick={() => slideLeft()}>
           ❮
-        </a>
-        <a className="arrow right" onClick={() => slideRight()}>
+        </div>
+        <div className="arrow right" onClick={() => slideRight()}>
           ❯
-        </a>
+        </div>
       </SliderArrows>
     );
   };
